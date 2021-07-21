@@ -1,0 +1,6 @@
+dataset/lexicon_valid.json filter=lfs diff=lfs merge=lfs -text
+dataset/sentence_test.json filter=lfs diff=lfs merge=lfs -text
+dataset/sentence_train.json filter=lfs diff=lfs merge=lfs -text
+dataset/sentence_valid.json filter=lfs diff=lfs merge=lfs -text
+dataset/lexicon_test.json filter=lfs diff=lfs merge=lfs -text
+dataset/lexicon_train.json filter=lfs diff=lfs merge=lfs -text
