@@ -6,4 +6,4 @@ The dataset is derived from the following pre-existing datasets:
 
 * [LibriSpeech ASR Corpus](https://www.openslr.org/12)
 * [LibriSpeech Alignments](https://github.com/CorentinJ/librispeech-alignments)
-* [TIMIT](https://catalog.ldc.upenn.edu/LDC93S1)
+* [Wikipedia Homograph Disambiguation Data](https://github.com/google/WikipediaHomographData)
