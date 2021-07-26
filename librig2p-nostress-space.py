@@ -13,6 +13,7 @@ Grapheme-to-Phoneme training, validation and test sets
 
 _BASE_URL = "https://raw.githubusercontent.com/flexthink/librig2p-nostress-space/develop/dataset"
 
+
 _HOMEPAGE_URL = "https://github.com/flexthink/librig2p-nostress-space/tree/develop"
 
 _PHONEMES = [
@@ -57,10 +58,10 @@ _PHONEMES = [
     "ZH",
     " "
 ]
-_ORIGINS = ["librispeech", "librispeech-lex"]
+_ORIGINS = ["librispeech", "librispeech-lex", "wikipedia-homograph"]
 _NA = "N/A"
 _SPLIT_TYPES = ["train", "valid", "test"]
-_DATA_TYPES = ["lexicon", "sentence"]
+_DATA_TYPES = ["lexicon", "sentence", "homograph"]
 _SPLITS = [
     f"{data_type}_{split_type}"
     for data_type in _DATA_TYPES
@@ -82,6 +83,8 @@ class GraphemeToPhoneme(datasets.GeneratorBasedBuilder):
                     "origin": datasets.ClassLabel(names=_ORIGINS),
                     "char": datasets.Value("string"),
                     "phn": datasets.Sequence(datasets.ClassLabel(names=_PHONEMES)),
+                    "homograph": datasets.Value("string"),
+                    "homograph_wordid": datasets.Value("string")
                 },
             ),
             supervised_keys=None,
@@ -113,6 +116,8 @@ class GraphemeToPhoneme(datasets.GeneratorBasedBuilder):
             resp = {
                 "id": item_id,
                 "speaker_id": str(item.get("speaker_id") or _NA),
+                "homograph": item.get("homograph", _NA),
+                "homograph_wordid": item.get("homograph_wordid", _NA),
                 "origin": item["origin"],
                 "char": item["char"],
                 "phn": item["phn"],
