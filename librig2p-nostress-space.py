@@ -11,8 +11,7 @@ _DESCRIPTION = """\
 Grapheme-to-Phoneme training, validation and test sets
 """
 
-_BASE_URL = "https://raw.githubusercontent.com/flexthink/librig2p-nostress-space/develop/dataset"
-
+_BASE_URL = "https://media.githubusercontent.com/flexthink/librig2p-nostress-space/develop/dataset"
 
 _HOMEPAGE_URL = "https://github.com/flexthink/librig2p-nostress-space/tree/develop"
 
@@ -84,7 +83,11 @@ class GraphemeToPhoneme(datasets.GeneratorBasedBuilder):
                     "char": datasets.Value("string"),
                     "phn": datasets.Sequence(datasets.ClassLabel(names=_PHONEMES)),
                     "homograph": datasets.Value("string"),
-                    "homograph_wordid": datasets.Value("string")
+                    "homograph_wordid": datasets.Value("string"),
+                    "homograph_char_start": datasets.Value("int32"),
+                    "homograph_char_end": datasets.Value("int32"),
+                    "homograph_phn_start": datasets.Value("int32"),
+                    "homograph_phn_end": datasets.Value("int32"),
                 },
             ),
             supervised_keys=None,
@@ -116,10 +119,15 @@ class GraphemeToPhoneme(datasets.GeneratorBasedBuilder):
             resp = {
                 "id": item_id,
                 "speaker_id": str(item.get("speaker_id") or _NA),
-                "homograph": item.get("homograph", _NA),
-                "homograph_wordid": item.get("homograph_wordid", _NA),
                 "origin": item["origin"],
                 "char": item["char"],
                 "phn": item["phn"],
+                "homograph": item.get("homograph", _NA),
+                "homograph_wordid": item.get("homograph_wordid", _NA),
+                "homograph_char_start": item.get("homograph_char_start", 0),
+                "homograph_char_end": item.get("homograph_char_end", 0),
+                "homograph_phn_start": item.get("homograph_phn_start", 0),
+                "homograph_phn_end": item.get("homograph_phn_end", 0)
+
             }
             yield sentence_counter, resp
